@@ -1,0 +1,96 @@
+mixin comment(data)
+    .comment
+        .data= data.date 
+        .author= data.author 
+        .text= data.text
+
+
+doctype html
+html 
+    head
+        link(rel="stylesheet" href="style.css")
+        style. 
+            p {
+                font-family: "Helvetica Neue", Helvetica, Arial,
+            }
+    body
+        
+        h1 Index Page
+        //- basics
+        p hello world
+        p. 
+            this is multiple line
+            text
+        ul 
+            li item 1
+            li item 2
+        //- classes and ids
+        p.paragraph this is p with class
+        p#uniqueId this is p with id
+        .display-box this is a div with class
+        #anotherid this is a div with an id
+
+        //- attributes
+        input(type="text" value="example" data-js=`${ 2 > 1 ? "OK" : "NOT OK!"}` disabled)
+
+        - const myClasses = ["class 1", "class 2", "class 3"]
+        div.my-div(class=myClasses)
+
+        - const myAttribute = {"src": "photo.png", "alt": "logo"}
+        img&attributes(myAttribute)
+
+        //- styles
+        - const myStyles = {"color": "red", "background": "black"}
+        div(style=myStyles)
+
+        p(style="text-align: center") this is centered
+
+        //- loops
+        each n, i in ["param 1", "param 2", "parama 3"]
+            p= "value : "+n +" || index : "+ i
+
+        - const arr = ["param 1", "param 2", "parama 3"]
+        each n, i in arr
+            p= "value : "+n +" || index : "+ i
+
+        - const obj = {"param 1": 00, "param 2": 11, "parama 3": 22}
+        each n, i in obj
+            p= "value : "+n +" || index : "+ i
+        
+        each n, i in []
+            p= "value : "+n +" || index : "+ i
+        else
+            strong empty
+
+        //- conditions
+        - let user = {name: "Med Amine Ck", isLoggedIn: false, lastLogIn: 6}
+        if user.isLoggedIn 
+            p welcome back #{user.name}
+        else if user.lastLogIn < 10
+            p your last log in was #{user.lastLogIn}, would you like to 
+                a(href="/login") log in
+                |a gain
+        else 
+            a(href="/login") log in
+        
+        //- case statment
+        - const status = "Processing"
+        case status 
+            when "Pending"
+                p your order is Pending 
+            when "Processing"
+                p your order is Processing 
+            when "Completed"
+                p your order is Completed 
+            default 
+                p sorry!
+
+        //- includes
+        include ./includes/nav
+
+        //functions / mixin
+        - let commentObj = {date: "12/12/21", text: "this is a sample comment", author: "Med Amine Ck"}
+        +comment(commentObj)
+
+
+        
